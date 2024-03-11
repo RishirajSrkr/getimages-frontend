@@ -633,7 +633,7 @@ textarea {
 
 .authors__container{
   grid-template-columns: 1fr;
-  gap: 1.2rem;
+  gap: .8rem;
 }
 
 .dashboard__post{
