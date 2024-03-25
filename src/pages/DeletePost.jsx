@@ -22,7 +22,7 @@ function DeletePost({ postId: id }) {
 
   async function removePost() {
     try {
-      const response = await axios.delete(`http://localhost:5000/api/posts/${id}`, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } })
+      const response = await axios.delete(`${import.meta.env.VITE_APP_BASE_URL}/posts/${id}`, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } })
       if (response.status == 200) {
         if (location.pathname == `/myposts/${currentUser.id}`) {
           navigate(0);

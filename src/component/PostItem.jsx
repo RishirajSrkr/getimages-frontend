@@ -12,7 +12,7 @@ function PostItem({ postId, category, thumbnail, title, body, authorId, createdA
   return (
     <article className='post'>
       <div className='post__thumbnail'>
-        <img src={`http://localhost:5000/uploads/${thumbnail}`} alt={shortTitle} />
+        <img src={`${import.meta.env.VITE_APP_ASSETS_URL}/uploads/${thumbnail}`} alt={shortTitle} />
       </div>
       <div className='post__content'>
         <Link to={`/posts/${postId}`} >

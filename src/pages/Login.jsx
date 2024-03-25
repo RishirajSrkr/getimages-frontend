@@ -28,7 +28,7 @@ function Login() {
     setError('')
 
     try {
-      const response = await axios.post("http://localhost:5000/api/users/login", userData)
+      const response = await axios.post(`${import.meta.env.VITE_APP_BASE_URL}/users/login`, userData)
 
       const user = await response.data;
       // in server side, we are returning this on successfull login ->

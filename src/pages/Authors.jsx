@@ -10,7 +10,7 @@ function Authors() {
     const fetchAuthors = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get("http://localhost:5000/api/users")
+        const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URL}/users`)
 
         setAuthors(response.data);
       }
@@ -35,7 +35,7 @@ function Authors() {
           {authors.map(({ _id: id, avatar, name, posts }) => {
             return <Link className='author' key={id} to={`/posts/users/${id}`} >
               <div className='author__avatar'>
-                <img src={`http://localhost:5000/uploads/${avatar}`} alt={`Image of ${name}`} />
+                <img src={`${import.meta.env.VITE_APP_ASSETS_URL}/uploads/${avatar}`} alt={`Image of ${name}`} />
               </div>
               <div className='author__info'>
                 <h4>{name}</h4>

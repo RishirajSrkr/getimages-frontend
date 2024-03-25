@@ -12,7 +12,7 @@ function Posts() {
         const fetchPosts = async () => {
             setIsLoading(true);
             try {
-                const response = await axios.get("http://localhost:5000/api/posts");
+                const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URL}/posts`);
                 setPosts(response?.data);
             }
             catch (err) {

@@ -16,7 +16,7 @@ function PostAuthor({ authorId, createdAt }) {
   useEffect(() => {
     const getAuthor = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/users/${authorId}`);
+        const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URL}/users/${authorId}`);
 
         setAuthor(response?.data)
       }
@@ -31,7 +31,7 @@ function PostAuthor({ authorId, createdAt }) {
   return (
     <Link to={`/posts/users/${authorId}`} className='post__author'>
       <div className="post-author-avatar">
-        <img src={`http://localhost:5000/uploads/${author?.avatar}`} alt="" />
+        <img src={`${import.meta.env.VITE_APP_ASSETS_URL}/uploads/${author?.avatar}`} alt="" />
       </div>
       <div className="post-author-details">
         <h5>By: {author?.name}</h5>

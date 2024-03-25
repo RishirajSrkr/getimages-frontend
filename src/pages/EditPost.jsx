@@ -50,7 +50,7 @@ function EditPost() {
   useEffect(() => {
     const getPostToEdit = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/posts/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URL}/posts/${id}`);
 
         settitle(response.data.title)
         setdescription(response.data.description)
@@ -73,7 +73,7 @@ function EditPost() {
     postData.set('thumbnail', thumbnail);
 
     try {
-      const response = await axios.patch(`http://localhost:5000/api/posts/${id}`, postData, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } })
+      const response = await axios.patch(`${import.meta.env.VITE_APP_BASE_URL}/posts/${id}`, postData, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } })
 
       if (response.status == 200) {
         return navigate('/');

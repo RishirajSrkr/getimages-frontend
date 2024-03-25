@@ -16,7 +16,7 @@ function AuthorPosts() {
       setIsLoading(true)
       try {
 
-        const response = await axios.get(`http://localhost:5000/api/posts/users/${userId}`);
+        const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URL}/posts/users/${userId}`);
 
         setPosts(response.data)
 

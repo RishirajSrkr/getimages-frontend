@@ -77,7 +77,7 @@ function CreatePost() {
     postData.set('description', description);
 
     try {
-      const response = await axios.post("http://localhost:5000/api/posts", postData,
+      const response = await axios.post(`${import.meta.env.VITE_APP_BASE_URL}/posts`, postData,
 
         {
           withCredentials: true,

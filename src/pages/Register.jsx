@@ -26,7 +26,7 @@ function Register() {
     setError('');
 
     try {
-      const response = await axios.post("http://localhost:5000/api/users/register", userData);
+      const response = await axios.post(`${import.meta.env.VITE_APP_BASE_URL}/users/register`, userData);
 
       const newUser = response.data;
 

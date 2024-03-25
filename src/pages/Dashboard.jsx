@@ -27,7 +27,7 @@ function Dashboard() {
     const fetchPosts = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`http://localhost:5000/api/posts/users/${id}`, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } });
+        const response = await axios.get(`${import.meta.env.VITE_APP_BASE_URL}/posts/users/${id}`, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } });
         setPosts(response.data)
       }
       catch (err) {
@@ -41,7 +41,6 @@ function Dashboard() {
     fetchPosts();
   }, [id])
 
-  console.log(posts);
 
   return (
     <section className='dashboard'>
@@ -53,7 +52,7 @@ function Dashboard() {
                 return <article key={post._id} className='dashboard__post'>
                   <div className="dashboard__post-info">
                     <div className="dashboard__post-thumbnail">
-                      <img src={`http://localhost:5000/uploads/${post.thumbnail}`} alt="" />
+                      <img src={`${import.meta.env.VITE_APP_ASSETS_URL}/uploads/${post.thumbnail}`} alt="" />
                     </div>
                     <h5>{post.title}</h5>
                   </div>
