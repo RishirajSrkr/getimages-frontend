@@ -1,8 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 
+import { UserContext } from '../context/userContext'
+import { useNavigate } from 'react-router-dom'
+
+import axios from 'axios';
+
 function CreatePost() {
+
+  const navigate = useNavigate();
+
+  const { currentUser } = useContext(UserContext);
+  const token = currentUser?.jwtToken;
+
+  const [error, setError] = useState('')
+
+  //redirect to login page for any user who isn't logged in.
+  useEffect(() => {
+    if (!token) {
+      navigate('/login')
+    }
+  }, [])
+
 
   const POST_CATEGORIES = ["Agriculture", "Business", "Education", "Entertainment", "Art", "Investment"]
 
@@ -12,15 +32,6 @@ function CreatePost() {
     thumbnail: "",
   })
   const [description, setDescription] = useState("");
-
- console.log(
-
-  {
-    title: formData.title,
-    description,
-    category: formData.category
-  }
- );
 
   const modules = {
     toolbar: [
@@ -37,18 +48,63 @@ function CreatePost() {
 
 
   function handleForm(e) {
-    setFormData(prev => (
-      { ...prev, [e.target.name]: e.target.value }
-    ))
+
+    if (e.target.name === "thumbnail") {
+      const selectedFile = e.target.files[0];
+      if (!selectedFile || !selectedFile.type.match('image/.*')) {
+        setError("Please select a valid image file.");
+        return;
+      }
+      setFormData(prev => (
+        { ...prev, [e.target.name]: selectedFile }
+      ))
+    }
+
+    else {
+      setFormData(prev => (
+        { ...prev, [e.target.name]: e.target.value }
+      ))
+    }
+  }
+
+  async function createPost(e) {
+    e.preventDefault();
+
+    const postData = new FormData();
+    postData.set('title', formData.title);
+    postData.set('category', formData.category);
+    postData.set('thumbnail', formData.thumbnail);
+    postData.set('description', description);
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/posts", postData,
+
+        {
+          withCredentials: true,
+          headers: { Authorization: `Bearer ${token}` }
+
+        }
+
+      );
+
+      if (response.status == 201) {
+        return navigate('/')
+      }
+    }
+
+    catch (error) {
+      setError(error.response.data.message);
+    }
   }
 
   return (
     <section className="create-post">
       <div className="container">
         <h2>Create Post</h2>
-        <p className='form__error-message'>This is an error message</p>
+        {error && <p className='form__error-message'>{error}</p>}
 
-        <form className="form create-post__form">
+        <form className="form create-post__form" onSubmit={createPost}>
+
           <input type="text"
             placeholder='Title'
             name='title'

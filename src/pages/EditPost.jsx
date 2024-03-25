@@ -1,26 +1,33 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import { UserContext } from '../context/userContext'
+import { useNavigate, useParams } from 'react-router-dom'
+import axios from 'axios'
 
 function EditPost() {
 
+  const navigate = useNavigate();
+
+  const { currentUser } = useContext(UserContext);
+  const token = currentUser?.jwtToken;
+
+  //redirect to login page for any user who isn't logged in.
+  useEffect(() => {
+    if (!token) {
+      navigate('/login')
+    }
+  }, [])
+
+
   const POST_CATEGORIES = ["Agriculture", "Business", "Education", "Entertainment", "Art", "Investment"]
 
-  const [formData, setFormData] = useState({
-    title: "",
-    category: "Uncategorized",
-    thumbnail: "",
-  })
-  const [description, setDescription] = useState("");
+  const [title, settitle] = useState('');
+  const [description, setdescription] = useState('');
+  const [category, setcategory] = useState('');
+  const [thumbnail, setThumbnail] = useState('');
 
- console.log(
-
-  {
-    title: formData.title,
-    description,
-    category: formData.category
-  }
- );
+  const [error, setError] = useState('');
 
   const modules = {
     toolbar: [
@@ -36,30 +43,67 @@ function EditPost() {
   ];
 
 
-  function handleForm(e) {
-    setFormData(prev => (
-      { ...prev, [e.target.name]: e.target.value }
-    ))
+
+  //getting the id of the post to edit
+  const { id } = useParams();
+
+  useEffect(() => {
+    const getPostToEdit = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/posts/${id}`);
+
+        settitle(response.data.title)
+        setdescription(response.data.description)
+        setcategory(response.data.category)
+      }
+      catch (err) {
+        console.log(err);
+      }
+    }
+    getPostToEdit();
+  }, [])
+
+  const editPost = async (e) => {
+    e.preventDefault();
+
+    const postData = new FormData();
+    postData.set('title', title);
+    postData.set('description', description);
+    postData.set('category', category);
+    postData.set('thumbnail', thumbnail);
+
+    try {
+      const response = await axios.patch(`http://localhost:5000/api/posts/${id}`, postData, { withCredentials: true, headers: { Authorization: `Bearer ${token}` } })
+
+      if (response.status == 200) {
+        return navigate('/');
+      }
+    }
+
+    catch (err) {
+      setError(err.response.data.message)
+    }
+
   }
 
   return (
     <section className="createPost">
       <div className="container">
         <h2>Edit Post</h2>
-        <p className='form__error-message'>This is an error message</p>
+        {error && <p className='form__error-message'>{error}</p>}
 
-        <form className="form create-post__form">
+        <form className="form create-post__form" onSubmit={editPost}>
           <input type="text"
             placeholder='Title'
             name='title'
-            value={formData.title}
-            onChange={(e) => handleForm(e)}
+            value={title}
+            onChange={(e) => settitle(e.target.value)}
             autoFocus
           />
           <select
             name='category'
-            value={formData.category}
-            onChange={(e) => handleForm(e)}
+            value={category}
+            onChange={(e) => setcategory(e.target.value)}
           >
 
             {POST_CATEGORIES.map((category) => {
@@ -71,10 +115,13 @@ function EditPost() {
             modules={modules}
             formats={formats}
             value={description}
-            onChange={setDescription}
+            onChange={setdescription}
           />
 
-          <input type="file" name='thumbnail' onChange={(e) => handleForm(e)} accept='png, jpg, jpeg' />
+          <input type="file"
+            name='thumbnail'
+            onChange={(e) => setThumbnail(e.target.files[0])}
+            accept='png, jpg, jpeg' />
 
           <button type='submit' className='btn primary'>Update</button>
         </form>

@@ -9,7 +9,7 @@ import Home from './pages/Home.jsx'
 import PostDetail from './pages/PostDetail.jsx'
 import Register from './pages/Register.jsx'
 import UserProfile from './pages/UserProfile.jsx'
-import Login from './pages/Loign.jsx'
+import Login from './pages/Login.jsx'
 import Authors from './pages/Authors.jsx'
 import CreatePost from './pages/CreatePost.jsx'
 import CategoryPosts from './pages/CategoryPosts.jsx'
@@ -19,10 +19,13 @@ import Dashboard from './pages/Dashboard.jsx'
 import Editpost from './pages/EditPost.jsx'
 import Logout from './pages/Logout.jsx'
 
+import UserProvider from './context/userContext.jsx'
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <UserProvider><Layout /></UserProvider>,
+
     errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home /> },
@@ -38,7 +41,7 @@ const router = createBrowserRouter([
       { path: '/posts/:id/edit', element: <Editpost /> },
       { path: '/posts/:id/delete', element: <DeletePost /> },
       { path: '/logout', element: <Logout /> },
-  
+
     ]
   }
 ])
