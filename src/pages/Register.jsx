@@ -34,7 +34,6 @@ function Register() {
         setError("Couldn't register user.")
       }
 
-      console.log(newUser);
       navigate('/')
 
     }

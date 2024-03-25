@@ -93,6 +93,7 @@ function CreatePost() {
     }
 
     catch (error) {
+      console.log("err");
       setError(error.response.data.message);
     }
   }

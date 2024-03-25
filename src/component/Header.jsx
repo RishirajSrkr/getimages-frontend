@@ -23,7 +23,7 @@ function Header() {
     <nav>
       <div className="container nav__container">
         <Link to="/" className="nav__logo" onClick={closeNavHandler}>
-          LOGO
+          GetImage
         </Link>
         {currentUser?.id && navShow && <ul className='nav__menu'>
           <li><Link to={`/profile/${currentUser.id}`} onClick={closeNavHandler} >{currentUser.name}</Link></li>
