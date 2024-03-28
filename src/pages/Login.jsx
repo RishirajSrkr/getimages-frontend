@@ -46,7 +46,7 @@ function Login() {
 
   return (
     <section className='login'>
-      <div className="container">
+      <div className="container login__container">
         <h2>Log in</h2>
         <form className='form login__form' onSubmit={loginUser}>
           {error && <p className='form__error-message'>{error}</p>}

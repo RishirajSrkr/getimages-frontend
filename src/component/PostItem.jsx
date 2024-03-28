@@ -7,7 +7,6 @@ function PostItem({ postId, category, thumbnail, title, body, authorId, createdA
   const shortBody = body.length > 145 ? body.substr(0, 145) + '...' : body;
   const shortTitle = title.length > 30 ? title.substr(0, 30) + '...' : title;
 
-  const { category: categoryId } = useParams();
 
   return (
     <article className='post'>
@@ -22,9 +21,7 @@ function PostItem({ postId, category, thumbnail, title, body, authorId, createdA
         <div className="post__footer">
           <PostAuthor authorId={authorId} createdAt={createdAt} />
 
-
-
-          {!categoryId && <Link className='btn category' to={`posts/categories/${category}`}>{category}</Link>}
+          <Link to={`/posts/categories/${category}`} className='btn category'>{category}</Link>
 
         </div>
       </div>
