@@ -695,5 +695,6 @@ textarea {
 .loader__image{
   width: 4.5rem;
   aspect-ratio: 1;
+  mix-blend-mode: multiply;
 
 }

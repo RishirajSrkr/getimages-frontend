@@ -19,7 +19,7 @@ function Posts() {
                 console.log(err);
             }
 
-            setIsLoading(false)
+                setIsLoading(false)
         }
 
         fetchPosts();

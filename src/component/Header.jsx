@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import logo from '../images/logo.jpg'
 import { MdOutlineMenu } from "react-icons/md";
 import { IoCloseSharp } from "react-icons/io5";
 
