@@ -46,7 +46,7 @@ function Register() {
 
   return (
     <section className='register'>
-      <div className="container">
+      <div className="container register__container">
         <h2>Sign Up</h2>
         <form className='form register__form' onSubmit={registerUser}>
           {error && <p className='form__error-message'>{error}</p>}
