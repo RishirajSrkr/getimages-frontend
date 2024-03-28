@@ -42,6 +42,9 @@ function Dashboard() {
   }, [id])
 
 
+  if(isLoading){
+    return <Loader/>
+  }
   return (
     <section className='dashboard'>
       {
@@ -66,7 +69,7 @@ function Dashboard() {
             }
           </div>
           :
-          <h2 className='center'>You have no posts yet.</h2>
+          <h2 className='center'>You havs yet.</h2>
       }
     </section>
   )
