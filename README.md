@@ -1,8 +1,17 @@
-# React + Vite
+**Description**
+Developed a web application inspired by Pinterest, tailored specifically for AI-generated images. The platform enables users to upload and share their AI-generated creations, browse an extensive collection of AI art categorized by prompts and styles. Future enhancements will allow clients to connect with freelance AI artists based on displayed images and prompts.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Features**
+Upload and Share AI Art: Users can upload their AI-generated images and share them with the community.
+Browse AI Art: Explore a vast collection of AI art categorized by prompts and styles.
+User Authentication: Secure login and registration using JWT Authentication.
+Password Security: Passwords are hashed with Bcrypt for enhanced security.
+Future Enhancements: Enable clients to connect with freelance AI artists based on the images and prompts displayed.
 
-Currently, two official plugins are available:
+**Tech Stack**
+Frontend: React JS
+Backend: NodeJS, Express
+Database: MongoDB
+Security: JWT Authentication, Bcrypt Password Hashing
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Backend code:** https://github.com/RishirajSrkr/getimages-backend
